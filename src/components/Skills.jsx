@@ -10,14 +10,14 @@ export default function Skills() {
       icon: '⚡',
       color: 'blue',
       description: 'Modern UI frameworks and libraries',
-      items: ['React.js', 'React Native', 'Angular', 'Next.js', 'TypeScript', 'HTML5', 'CSS3', 'Tailwind CSS']
+      items: ['React.js', 'React Native', 'Angular', 'Next.js', 'solid-js',  'TypeScript', 'HTML5', 'CSS3', 'Tailwind CSS']
     },
     {
       category: 'Backend',
       icon: '🔧',
       color: 'purple',
       description: 'Server-side technologies and APIs',
-      items: ['Node.js', 'Spring Boot', 'Spring Batch', 'WebSockets', 'REST APIs', 'GraphQL']
+      items: ['Node.js', 'Java', 'Spring Boot', 'Spring Batch', 'WebSockets', 'REST APIs', 'GraphQL']
     },
     {
       category: 'Mobile',
@@ -31,21 +31,21 @@ export default function Skills() {
       icon: '🤖',
       color: 'orange',
       description: 'Machine learning and computer vision',
-      items: ['OCR', 'ScanBot SDK', 'Auto-Cropping', 'Fraud Detection', 'AI Integration', 'ML Models']
+      items: ['OCR', 'ScanBot SDK', 'Auto-Cropping', 'Fraud Detection', 'AI Integration']
     },
     {
       category: 'Infrastructure',
       icon: '🛠️',
       color: 'indigo',
       description: 'DevOps and database management',
-      items: ['SQL/NoSQL', 'Docker', 'Linux/Windows', 'Query Optimization', 'CI/CD', 'AWS']
+      items: ['SQL/NoSQL', 'Docker', 'Linux/Windows', 'Query Optimization']
     },
     {
       category: 'Tools & Practices',
       icon: '⚙️',
       color: 'pink',
       description: 'Development tools and methodologies',
-      items: ['Git', 'JIRA', 'Figma', 'Postman', 'Agile/Scrum', 'Testing']
+      items: ['Git', 'JIRA', 'Click up', 'Postman', 'Agile/Scrum', 'Testing']
     }
   ];
 
@@ -203,27 +203,27 @@ export default function Skills() {
               {[
                 {
                   level: 'Expert',
-                  percentage: '95',
+                  percentage: '40',
                   color: 'from-blue-600 to-blue-400',
-                  items: ['React.js', 'React Native', 'Spring Boot', 'Node.js', 'TypeScript']
+                  items: ['React.js', 'React Native', 'HTML5', 'Css', 'React material']
                 },
                 {
                   level: 'Advanced',
-                  percentage: '85',
+                  percentage: '95',
                   color: 'from-purple-600 to-purple-400',
-                  items: ['Angular', 'Next.js', 'Docker', 'CI/CD', 'OCR & AI']
+                  items: ['React js', 'React native' , 'Next.js', 'Expo', 'Docker', 'Tailwind']
                 },
                 {
                   level: 'Proficient',
-                  percentage: '75',
+                  percentage: '80',
                   color: 'from-green-600 to-green-400',
-                  items: ['GraphQL', 'Expo', 'AWS', 'PostgreSQL', 'MongoDB']
+                  items: ['Java', 'Spring boot', 'PostgreSQL', 'Lunix & windows servers']
                 },
                 {
                   level: 'Experienced',
                   percentage: '70',
                   color: 'from-orange-600 to-orange-400',
-                  items: ['Python', 'WebSockets', 'JIRA', 'Figma', 'Linux']
+                  items: ['WebSockets', 'JIRA', 'Click up' ,  'Linux']
                 }
               ].map((prof) => (
                 <div class="group/prof">

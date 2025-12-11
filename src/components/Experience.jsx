@@ -1,38 +1,137 @@
 // src/components/Experience.jsx
-import { For, Show } from 'solid-js';
+import { For, Show, createMemo } from "solid-js";
 
 export default function Experience() {
   const experienceData = [
     {
-      title: 'Full Stack Engineer',
-      company: 'Exia Technologies',
-      location: 'Casablanca',
-      period: 'Jul 2022 – Present',
-      duration: '2+ years',
+      title: "Full Stack Engineer",
+      company: "Exia Technologies",
+      location: "Casablanca",
+      startDate: "2022-07-18",
+      endDate: null, // null for current role
       isCurrentRole: true,
-      technologies: ['React', 'React Native', 'Angular', 'Spring Boot', 'TypeScript', 'Node.js'],
+      technologies: [
+        "React",
+        "React Native",
+        "Angular",
+        "Spring Boot",
+        "TypeScript",
+        "Node.js",
+      ],
       achievements: [
-        'Architected full-stack solutions using React, Angular, React Native & Spring Boot',
-        'Mentored junior developers through code reviews and best practices',
-        'Led integration of advanced technologies including AI and OCR',
-        'Reduced critical bugs by 25% through rigorous testing protocols'
-      ]
+        "Architected full-stack solutions using React, Angular, React Native & Spring Boot",
+        "Mentored junior developers through code reviews and best practices",
+        "Led integration of advanced technologies including AI and OCR",
+        "Reduced critical bugs by 25% through rigorous testing protocols",
+      ],
     },
     {
-      title: 'React & React Native Developer',
-      company: '2WLS',
-      location: 'Casablanca',
-      period: 'Previous Position',
-      duration: '2 years',
+      title: "React & React Native Developer",
+      company: "World Wide Loyalty System",
+      location: "Casablanca",
+      startDate: "2021-04-18",
+      endDate: "2022-07-10",
       isCurrentRole: false,
-      technologies: ['React', 'React Native', 'Docker', 'JavaScript'],
+      technologies: ["React", "React Native", "Docker", "JavaScript"],
       achievements: [
-        'Optimized development workflows using Docker',
-        'Maintained production applications supporting thousands of users',
-        'Implemented responsive designs and improved performance metrics'
-      ]
-    }
+        "Optimized development workflows using Docker",
+        "Maintained production applications supporting thousands of users",
+        "Implemented responsive designs and improved performance metrics",
+      ],
+    },
+    {
+      title: "Full Stack Web Developer",
+      company: "SCC Partner",
+      location: "Casablanca, Morocco",
+      startDate: "2020-11-01",
+      endDate: "2021-03-30",
+      isCurrentRole: false,
+      technologies: [
+        "Angular",
+        "Node.js",
+        "React.js",
+        "MySQL",
+        "JavaScript",
+        "HTML/CSS",
+        "REST APIs",
+      ],
+      achievements: [
+        "Developed full-stack web applications using Angular and Node.js",
+        "Implemented RESTful APIs and integrated with MySQL database",
+        "Collaborated on responsive web interfaces and user experience improvements",
+        "Contributed to application architecture and database design decisions",
+      ],
+    },
   ];
+
+  // Helper function to format period string
+  const formatPeriod = (startDate, endDate) => {
+    const start = new Date(startDate);
+    const end = endDate ? new Date(endDate) : new Date();
+
+    const startMonth = start.toLocaleString("default", { month: "short" });
+    const startYear = start.getFullYear();
+
+    if (endDate) {
+      const endMonth = end.toLocaleString("default", { month: "short" });
+      const endYear = end.getFullYear();
+      return `${startMonth} ${startYear} – ${endMonth} ${endYear}`;
+    } else {
+      return `${startMonth} ${startYear} – Present`;
+    }
+  };
+
+  // Helper function to calculate duration string
+  const calculateDuration = (startDate, endDate) => {
+    const start = new Date(startDate);
+    const end = endDate ? new Date(endDate) : new Date();
+
+    const months =
+      (end.getFullYear() - start.getFullYear()) * 12 +
+      (end.getMonth() - start.getMonth());
+
+    const years = Math.floor(months / 12);
+    const remainingMonths = months % 12;
+
+    if (years === 0) {
+      return `${months} months`;
+    } else if (remainingMonths === 0) {
+      return endDate ? `${years} years` : `${years}+ years`;
+    } else {
+      const duration = years + remainingMonths / 12;
+      return endDate ? `${duration.toFixed(1)} years` : `${years}+ years`;
+    }
+  };
+
+  // Calculate total years of experience
+  const calculateTotalExperience = () => {
+    let totalMonths = 0;
+
+    experienceData.forEach((exp) => {
+      const start = new Date(exp.startDate);
+      const end = exp.endDate ? new Date(exp.endDate) : new Date();
+
+      const months =
+        (end.getFullYear() - start.getFullYear()) * 12 +
+        (end.getMonth() - start.getMonth());
+      totalMonths += months;
+    });
+
+    const totalYears = totalMonths / 12;
+    return Math.floor(totalYears); // Returns 3+ years for your case
+  };
+
+  // Format the experience data with calculated values
+  const formattedExperienceData = createMemo(() =>
+    experienceData.map((exp) => ({
+      ...exp,
+      period: formatPeriod(exp.startDate, exp.endDate),
+      duration: calculateDuration(exp.startDate, exp.endDate),
+    }))
+  );
+
+  // Memoized total experience
+  const totalExperience = createMemo(() => calculateTotalExperience());
 
   return (
     <section id="experience" class="relative py-20 md:py-28 overflow-hidden">
@@ -48,11 +147,18 @@ export default function Experience() {
           <div class="text-center mb-16">
             <div class="inline-block mb-4">
               <div class="px-4 py-2 bg-blue-500/20 border border-blue-400/50 rounded-full backdrop-blur-sm">
-                <p class="text-sm font-semibold text-blue-300">💼 Professional Journey</p>
+                <p class="text-sm font-semibold text-blue-300">
+                  💼 Professional Journey
+                </p>
               </div>
             </div>
-            <h2 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 bg-clip-text text-transparent mb-4">Work Experience</h2>
-            <p class="text-lg text-blue-100/80 max-w-2xl mx-auto">4+ years of building scalable, enterprise-grade applications across various sectors</p>
+            <h2 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 bg-clip-text text-transparent mb-4">
+              Work Experience
+            </h2>
+            <p class="text-lg text-blue-100/80 max-w-2xl mx-auto">
+              {totalExperience()}+ years of building scalable, enterprise-grade
+              applications across various sectors
+            </p>
           </div>
 
           {/* Timeline */}
@@ -62,24 +168,30 @@ export default function Experience() {
 
             {/* Experience Cards */}
             <div class="space-y-12">
-              <For each={experienceData}>
+              <For each={formattedExperienceData()}>
                 {(exp, index) => (
                   <div class="relative">
                     {/* Timeline dot */}
                     <div class="absolute left-0 md:left-1/2 -top-0 md:transform md:-translate-x-1/2 md:-translate-y-1/2">
-                      <div class={`w-5 h-5 rounded-full border-4 border-slate-900 ${
-                        exp.isCurrentRole 
-                          ? 'bg-gradient-to-br from-blue-400 to-purple-400 shadow-lg shadow-blue-400/60' 
-                          : 'bg-gradient-to-br from-gray-500 to-gray-600 shadow-lg shadow-gray-500/40'
-                      } transition-all duration-300 hover:scale-125`}></div>
+                      <div
+                        class={`w-5 h-5 rounded-full border-4 border-slate-900 ${
+                          exp.isCurrentRole
+                            ? "bg-gradient-to-br from-blue-400 to-purple-400 shadow-lg shadow-blue-400/60"
+                            : "bg-gradient-to-br from-gray-500 to-gray-600 shadow-lg shadow-gray-500/40"
+                        } transition-all duration-300 hover:scale-125`}
+                      ></div>
                     </div>
 
                     {/* Card */}
-                    <div class={`md:w-1/2 ${index() % 2 === 0 ? 'md:ml-auto md:pl-8' : 'md:pr-8'} ml-8 md:ml-0`}>
+                    <div
+                      class={`md:w-1/2 ${
+                        index() % 2 === 0 ? "md:ml-auto md:pl-8" : "md:pr-8"
+                      } ml-8 md:ml-0`}
+                    >
                       <div class="group relative bg-gradient-to-br from-blue-950/40 via-purple-950/30 to-slate-950/40 rounded-2xl p-8 border border-blue-400/30 hover:border-blue-400/60 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 backdrop-blur-sm overflow-hidden">
                         {/* Glow effect on hover */}
                         <div class="absolute inset-0 bg-gradient-to-r from-blue-600/0 via-blue-600/10 to-purple-600/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
-                        
+
                         {/* Animated border glow */}
                         <div class="absolute -inset-0.5 bg-gradient-to-r from-blue-400/0 via-blue-400/30 to-purple-400/0 rounded-2xl opacity-0 group-hover:opacity-100 blur transition-opacity duration-300 -z-20"></div>
 
@@ -87,7 +199,9 @@ export default function Experience() {
                         <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6 relative z-10">
                           <div class="flex-1">
                             <div class="flex items-center gap-3 mb-2">
-                              <h3 class="text-2xl font-bold text-blue-100">{exp.title}</h3>
+                              <h3 class="text-2xl font-bold text-blue-100">
+                                {exp.title}
+                              </h3>
                               <Show when={exp.isCurrentRole}>
                                 <span class="px-3 py-1 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs font-bold rounded-full shadow-lg shadow-blue-500/50">
                                   CURRENT
@@ -95,7 +209,9 @@ export default function Experience() {
                               </Show>
                             </div>
                             <div class="space-y-1">
-                              <p class="text-lg font-semibold bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">{exp.company}</p>
+                              <p class="text-lg font-semibold bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">
+                                {exp.company}
+                              </p>
                               <div class="flex flex-wrap items-center gap-2 text-blue-100/70">
                                 <span class="inline-flex items-center gap-1">
                                   <span>📍</span>
@@ -116,7 +232,9 @@ export default function Experience() {
 
                         {/* Technologies */}
                         <div class="mb-6 relative z-10">
-                          <p class="text-xs font-semibold text-blue-300/70 mb-3 uppercase tracking-wider">Technologies</p>
+                          <p class="text-xs font-semibold text-blue-300/70 mb-3 uppercase tracking-wider">
+                            Technologies
+                          </p>
                           <div class="flex flex-wrap gap-2">
                             <For each={exp.technologies}>
                               {(tech) => (
@@ -130,13 +248,19 @@ export default function Experience() {
 
                         {/* Achievements */}
                         <div class="relative z-10">
-                          <p class="text-xs font-semibold text-blue-300/70 mb-3 uppercase tracking-wider">Key Achievements</p>
+                          <p class="text-xs font-semibold text-blue-300/70 mb-3 uppercase tracking-wider">
+                            Key Achievements
+                          </p>
                           <ul class="space-y-3">
                             <For each={exp.achievements}>
                               {(achievement) => (
                                 <li class="flex items-start gap-3 group/item">
-                                  <span class="text-blue-400 font-bold mt-0.5 flex-shrink-0 group-hover/item:translate-x-1 group-hover/item:text-purple-400 transition-all duration-200">→</span>
-                                  <span class="text-blue-100/80 leading-relaxed group-hover/item:text-blue-100 transition-colors duration-200">{achievement}</span>
+                                  <span class="text-blue-400 font-bold mt-0.5 flex-shrink-0 group-hover/item:translate-x-1 group-hover/item:text-purple-400 transition-all duration-200">
+                                    →
+                                  </span>
+                                  <span class="text-blue-100/80 leading-relaxed group-hover/item:text-blue-100 transition-colors duration-200">
+                                    {achievement}
+                                  </span>
                                 </li>
                               )}
                             </For>
