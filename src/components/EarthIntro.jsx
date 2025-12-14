@@ -23,6 +23,7 @@ export default function EarthIntro({ onComplete }) {
     photo;
   let animationId;
   let clock = new THREE.Clock();
+  let earthRotationTween;
 
   // NASA textures with fallbacks
   const TEXTURES = {

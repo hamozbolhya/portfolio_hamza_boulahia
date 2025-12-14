@@ -28,3 +28,62 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: #64748b;
 }
+
+
+/* Add to your global CSS file (e.g., index.css) */
+@keyframes orbit {
+  0% {
+    transform: rotate(0deg) translateX(180px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(180px) rotate(-360deg);
+  }
+}
+
+@keyframes orbit-2 {
+  0% {
+    transform: rotate(0deg) translateX(220px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(220px) rotate(-360deg);
+  }
+}
+
+@keyframes orbit-3 {
+  0% {
+    transform: rotate(0deg) translateX(260px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(260px) rotate(-360deg);
+  }
+}
+
+.skill-orbit {
+  animation: orbit 20s linear infinite;
+}
+
+.skill-orbit-2 {
+  animation: orbit-2 25s linear infinite;
+}
+
+.skill-orbit-3 {
+  animation: orbit-3 30s linear infinite;
+}
+
+/* Parallax effect */
+.parallax-layer {
+  transition: transform 0.1s ease-out;
+}
+
+/* Glow effects */
+.glow-cyan {
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.3),
+              0 0 40px rgba(34, 211, 238, 0.2),
+              0 0 60px rgba(34, 211, 238, 0.1);
+}
+
+.glow-blue {
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3),
+              0 0 40px rgba(59, 130, 246, 0.2),
+              0 0 60px rgba(59, 130, 246, 0.1);
+}

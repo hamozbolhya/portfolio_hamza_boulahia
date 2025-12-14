@@ -1,41 +1,9 @@
 // src/components/Footer.jsx
 import { For } from "solid-js";
 import ContactInfo from "./ContactInfo";
-import { Github, Linkedin, Mail } from "lucide-solid";
+import { contactInfo, quickLinks, socialLinks } from "../data/personal";
 
 export default function Footer() {
-  const contactInfo = [
-    {
-      icon: "📧",
-      text: "hamzaboulahia.code@gmail.com",
-      link: "mailto:hamzaboulahia.code@gmail.com",
-    },
-    { icon: "📱", text: "+212 659 676 148", link: "tel:+212659676148" },
-    { icon: "📍", text: "Casablanca, Morocco" },
-    {
-      icon: "💼",
-      text: "linkedin.com/in/boulahia-hamza",
-      link: "https://linkedin.com/in/boulahia-hamza",
-    },
-  ];
-
-  const socialLinks = [
-    {
-      icon: Linkedin,
-      label: "LinkedIn",
-      href: "https://linkedin.com/in/boulahia-hamza",
-    },
-    { icon: Github, label: "GitHub", href: "https://github.com/hamozbolhya" },
-    { icon: Mail, label: "Email", href: "mailto:hamzaboulahia.code@gmail.com" },
-  ];
-
-  const quickLinks = [
-    { label: "Home", href: "#home" },
-    { label: "Experience", href: "#experience" },
-    { label: "Skills", href: "#skills" },
-    { label: "Projects", href: "#projects" },
-    { label: "Contact", href: "#contact" },
-  ];
 
   const currentYear = new Date().getFullYear();
 
@@ -65,7 +33,7 @@ export default function Footer() {
               </div>
               <h3 class="text-2xl font-bold text-white mb-2">Hamza Boulahia</h3>
               <p class="text-blue-200/80 mb-6 text-center md:text-left">
-                Full Stack Engineer • 4+ Years Experience
+                Full Stack Engineer • 5 Years Experience
               </p>
               <p class="text-blue-200/70 text-sm leading-relaxed text-center md:text-left max-w-xs">
                 Crafting scalable web & mobile solutions with modern

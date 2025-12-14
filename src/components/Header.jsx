@@ -1,6 +1,7 @@
 // src/components/Header.jsx
 import { createSignal, onMount } from "solid-js";
 import { Menu, X, Github, Linkedin, Mail } from "lucide-solid";
+import { navItems, socials } from "../data/nav";
 
 export default function Header() {
   const [isOpen, setIsOpen] = createSignal(false);
@@ -16,24 +17,6 @@ export default function Header() {
       window.removeEventListener("scroll", handleScroll);
     };
   });
-
-  const navItems = [
-    { label: "Home", href: "#home" },
-    { label: "Skills", href: "#skills" },
-    { label: "Experience", href: "#experience" },
-    { label: "Projects", href: "#projects" },
-    { label: "Contact", href: "#contact" },
-  ];
-
-  const socials = [
-    { icon: Github, href: "https://github.com/hamozbolhya", label: "GitHub" },
-    {
-      icon: Linkedin,
-      href: "https://www.linkedin.com/in/boulahia-hamza/",
-      label: "LinkedIn",
-    },
-    { icon: Mail, href: "mailto:hamzaboulahia.code@gmail.com", label: "Email" },
-  ];
 
   const isScrolled = scrollY() > 50;
 

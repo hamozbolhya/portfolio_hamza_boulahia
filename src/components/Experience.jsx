@@ -1,69 +1,8 @@
 // src/components/Experience.jsx
 import { For, Show, createMemo } from "solid-js";
+import { experienceData } from "../data/experience";
 
 export default function Experience() {
-  const experienceData = [
-    {
-      title: "Full Stack Engineer",
-      company: "Exia Technologies",
-      location: "Casablanca",
-      startDate: "2022-07-18",
-      endDate: null, // null for current role
-      isCurrentRole: true,
-      technologies: [
-        "React",
-        "React Native",
-        "Angular",
-        "Spring Boot",
-        "TypeScript",
-        "Node.js",
-      ],
-      achievements: [
-        "Architected full-stack solutions using React, Angular, React Native & Spring Boot",
-        "Mentored junior developers through code reviews and best practices",
-        "Led integration of advanced technologies including AI and OCR",
-        "Reduced critical bugs by 25% through rigorous testing protocols",
-      ],
-    },
-    {
-      title: "React & React Native Developer",
-      company: "World Wide Loyalty System",
-      location: "Casablanca",
-      startDate: "2021-04-18",
-      endDate: "2022-07-10",
-      isCurrentRole: false,
-      technologies: ["React", "React Native", "Docker", "JavaScript"],
-      achievements: [
-        "Optimized development workflows using Docker",
-        "Maintained production applications supporting thousands of users",
-        "Implemented responsive designs and improved performance metrics",
-      ],
-    },
-    {
-      title: "Full Stack Web Developer",
-      company: "SCC Partner",
-      location: "Casablanca, Morocco",
-      startDate: "2020-11-01",
-      endDate: "2021-03-30",
-      isCurrentRole: false,
-      technologies: [
-        "Angular",
-        "Node.js",
-        "React.js",
-        "MySQL",
-        "JavaScript",
-        "HTML/CSS",
-        "REST APIs",
-      ],
-      achievements: [
-        "Developed full-stack web applications using Angular and Node.js",
-        "Implemented RESTful APIs and integrated with MySQL database",
-        "Collaborated on responsive web interfaces and user experience improvements",
-        "Contributed to application architecture and database design decisions",
-      ],
-    },
-  ];
-
   // Helper function to format period string
   const formatPeriod = (startDate, endDate) => {
     const start = new Date(startDate);
