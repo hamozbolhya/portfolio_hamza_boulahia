@@ -158,3 +158,179 @@ export const skillsDataEx = [
     items: ["WebSockets", "JIRA", "Click up", "Linux"],
   },
 ];
+
+
+  // Size configurations
+  export const earthSizeMap = {
+    sm: { container: "w-48 h-48 md:w-64 md:h-64", glow: "w-64 h-64 md:w-96 md:h-96", orbitScale: 0.8 },
+    md: { container: "w-64 h-64 md:w-96 md:h-96", glow: "w-96 h-96 md:w-[500px] md:h-[500px]", orbitScale: 1 },
+    lg: { container: "w-96 h-96 md:w-[500px] md:h-[500px]", glow: "w-[600px] h-[600px] md:w-[700px] md:h-[700px]", orbitScale: 1.2 },
+    xl: { container: "w-[500px] h-[500px] md:w-[600px] md:h-[600px]", glow: "w-[700px] h-[700px] md:w-[800px] md:h-[800px]", orbitScale: 1.5 }
+  };
+
+  export const badgeSizeMap = {
+    xs: { container: "w-8 h-8 md:w-10 md:h-10", icon: "text-2xl md:text-3xl" },
+    sm: { container: "w-10 h-10 md:w-12 md:h-12", icon: "text-3xl md:text-4xl" },
+    md: { container: "w-12 h-12 md:w-14 md:h-14", icon: "text-4xl md:text-5xl" },
+    lg: { container: "w-14 h-14 md:w-16 md:h-16", icon: "text-5xl md:text-6xl" }
+  };
+
+  // Extended skills data with categories for the earth visualization
+  export const earthSkillsData = [
+    {
+      id: 1,
+      name: "React",
+      icon: "⚛️",
+      color: "from-cyan-400 to-blue-400",
+      bg: "bg-cyan-500/10",
+      orbitRadius: 180,
+      speed: 25,
+      phase: 0,
+      description: "Frontend",
+      category: "Frontend"
+    },
+    {
+      id: 2,
+      name: "React Native",
+      icon: "📱",
+      color: "from-purple-400 to-pink-400",
+      bg: "bg-purple-500/10",
+      orbitRadius: 210,
+      speed: 28,
+      phase: 30,
+      description: "Mobile",
+      category: "Mobile"
+    },
+    {
+      id: 3,
+      name: "Angular",
+      icon: "🅰️",
+      color: "from-red-400 to-orange-400",
+      bg: "bg-red-500/10",
+      orbitRadius: 240,
+      speed: 22,
+      phase: 60,
+      description: "Framework",
+      category: "Frontend"
+    },
+    {
+      id: 4,
+      name: "Spring Boot",
+      icon: "🍃",
+      color: "from-green-400 to-emerald-400",
+      bg: "bg-green-500/10",
+      orbitRadius: 160,
+      speed: 30,
+      phase: 90,
+      description: "Backend",
+      category: "Backend"
+    },
+    {
+      id: 5,
+      name: "JavaScript",
+      icon: "⚡",
+      color: "from-yellow-400 to-orange-400",
+      bg: "bg-yellow-500/10",
+      orbitRadius: 270,
+      speed: 20,
+      phase: 120,
+      description: "Language",
+      category: "Language"
+    },
+    {
+      id: 6,
+      name: "Next js",
+      icon: "🇳",
+      color: "from-blue-400 to-cyan-400",
+      bg: "bg-blue-500/10",
+      orbitRadius: 200,
+      speed: 26,
+      phase: 150,
+      description: "SSR",
+      category: "Frontend"
+    },
+    {
+      id: 7,
+      name: "Lunix",
+      icon: "🐧",
+      color: "from-orange-400 to-red-400",
+      bg: "bg-orange-500/10",
+      orbitRadius: 300,
+      speed: 18,
+      phase: 180,
+      description: "Server",
+      category: "Cloud"
+    },
+    {
+      id: 8,
+      name: "Docker",
+      icon: "🐳",
+      color: "from-sky-400 to-blue-400",
+      bg: "bg-sky-500/10",
+      orbitRadius: 140,
+      speed: 32,
+      phase: 210,
+      description: "Containers",
+      category: "DevOps"
+    },
+    {
+      id: 9,
+      name: "Git",
+      icon: "🌳",
+      color: "from-pink-400 to-red-400",
+      bg: "bg-pink-500/10",
+      orbitRadius: 120,
+      speed: 35,
+      phase: 240,
+      description: "Version Ctrl",
+      category: "Tools"
+    },
+    {
+      id: 10,
+      name: "Node.js",
+      icon: "🟢",
+      color: "from-emerald-400 to-green-400",
+      bg: "bg-emerald-500/10",
+      orbitRadius: 330,
+      speed: 16,
+      phase: 270,
+      description: "Runtime",
+      category: "Backend"
+    },
+    {
+      id: 11,
+      name: "TypeScript",
+      icon: "📘",
+      color: "from-blue-500 to-cyan-400",
+      bg: "bg-blue-500/10",
+      orbitRadius: 190,
+      speed: 27,
+      phase: 300,
+      description: "Superset JS",
+      category: "Language"
+    },
+    {
+      id: 12,
+      name: "Postgres sql",
+      icon: "🍃",
+      color: "from-green-500 to-emerald-400",
+      bg: "bg-green-500/10",
+      orbitRadius: 260,
+      speed: 21,
+      phase: 330,
+      description: "Database",
+      category: "Database"
+    }
+  ];
+
+  // Categories for earth visualization
+  export const categories = [
+    { name: "Frontend", count: 2, color: "text-cyan-400" },
+    { name: "Backend", count: 2, color: "text-emerald-400" },
+    { name: "Mobile", count: 1, color: "text-purple-400" },
+    { name: "Cloud", count: 1, color: "text-orange-400" },
+    { name: "DevOps", count: 1, color: "text-sky-400" },
+    { name: "Language", count: 3, color: "text-yellow-400" },
+    { name: "Database", count: 1, color: "text-green-400" },
+    { name: "Tools", count: 1, color: "text-pink-400" }
+  ];

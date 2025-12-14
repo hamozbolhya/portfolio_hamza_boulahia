@@ -2,14 +2,13 @@ import { onMount, createSignal, Show } from "solid-js";
 import EarthIntro from "./components/EarthIntro";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
-import Skills from "./components/Skills";
 import Experience from "./components/Experience";
 import Profile from "./components/Profile";
 import Footer from "./components/Footer";
 import EducationSection from "./components/EducationSection";
 import LanguagesSection from "./components/LanguagesSection";
 import HobbiesSection from "./components/HobbiesSection";
-import AnimatedEarthSection from "./components/AnimatedEarthSection";
+import SkillsSection from "./components/skills/SkillsSection";
 
 export default function App() {
   const [scrollY, setScrollY] = createSignal(0);
@@ -194,7 +193,7 @@ export default function App() {
               )}px)`,
             }}
           >
-            <Skills />
+            <SkillsSection />
           </div>
 
           {/* Experience Section */}
@@ -264,19 +263,6 @@ export default function App() {
             }}
           >
             <HobbiesSection />
-          </div>
-          {/* AnimatedEarth Section */}
-          <div
-            class="transition-all duration-300"
-            style={{
-              opacity: 1,
-              transform: `translateY(${Math.max(
-                0,
-                (scrollY() - 1200) * -0.15
-              )}px)`,
-            }}
-          >
-            <AnimatedEarthSection />
           </div>
 
           {/* Footer */}
