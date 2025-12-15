@@ -1,4 +1,6 @@
-import { Github, Linkedin, Mail } from "lucide-solid";
+import { Github, Linkedin, Mail} from "lucide-solid";
+import MediumIcon from "../shared/Meduim";
+
 
 export const contactInfo = [
   {
@@ -13,6 +15,11 @@ export const contactInfo = [
     text: "linkedin.com/in/boulahia-hamza",
     link: "https://linkedin.com/in/boulahia-hamza",
   },
+  {
+    icon: MediumIcon,
+    text: "medium.com/@hamzaboulahia.code",
+    link: "https://medium.com/@hamzaboulahia.code",
+  },
 ];
 
 export const socialLinks = [
@@ -23,6 +30,11 @@ export const socialLinks = [
   },
   { icon: Github, label: "GitHub", href: "https://github.com/hamozbolhya" },
   { icon: Mail, label: "Email", href: "mailto:hamzaboulahia.code@gmail.com" },
+  {
+    label: "Medium",
+    href: "https://medium.com/@hamzaboulahia.code",
+    icon: MediumIcon, // You'll need to import this
+  },
 ];
 
 export const quickLinks = [

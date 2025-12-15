@@ -17,7 +17,6 @@ const ProjectsShowcase = ({ projects }) => {
           >
             {/* Card Container */}
             <div class="relative w-full h-full rounded-2xl overflow-hidden border border-blue-400/30 hover:border-blue-400/70 transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-blue-500/40 backdrop-blur-md">
-              
               {/* Animated border glow */}
               <div class="absolute -inset-0.5 bg-gradient-to-r from-blue-400/0 via-blue-400/40 to-purple-400/0 rounded-2xl opacity-0 group-hover:opacity-100 blur transition-opacity duration-300 -z-20"></div>
 
@@ -28,6 +27,9 @@ const ProjectsShowcase = ({ projects }) => {
                     src={project.image}
                     alt={project.name}
                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                    width="400"
+                    height="300"
                   />
                 )}
                 {!project.image && (
@@ -40,18 +42,19 @@ const ProjectsShowcase = ({ projects }) => {
 
               {/* Content Overlay - Positioned at bottom */}
               <div class="absolute inset-0 flex flex-col justify-end p-5 md:p-6 z-10">
-                
                 {/* Header Section */}
                 <div class="mb-4">
                   {/* Company/Type Badge */}
                   <div class="mb-3 inline-block">
-                    <span class={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all backdrop-blur-sm ${
-                      project.type === "company"
-                        ? "bg-blue-500/50 text-blue-100 border border-blue-400/60"
-                        : project.type === "freelance"
-                        ? "bg-purple-500/50 text-purple-100 border border-purple-400/60"
-                        : "bg-pink-500/50 text-pink-100 border border-pink-400/60"
-                    } group-hover:scale-105 group-hover:border-current transition-all`}>
+                    <span
+                      class={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all backdrop-blur-sm ${
+                        project.type === "company"
+                          ? "bg-blue-500/50 text-blue-100 border border-blue-400/60"
+                          : project.type === "freelance"
+                          ? "bg-purple-500/50 text-purple-100 border border-purple-400/60"
+                          : "bg-pink-500/50 text-pink-100 border border-pink-400/60"
+                      } group-hover:scale-105 group-hover:border-current transition-all`}
+                    >
                       {project.type === "company" && (
                         <>
                           <span>🏢</span>

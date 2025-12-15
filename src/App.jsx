@@ -5,7 +5,7 @@ import Hero from "./components/Hero";
 import Experience from "./components/Experience";
 import Profile from "./components/Profile";
 import Footer from "./components/Footer";
-import EducationSection from "./components/EducationSection";
+import EducationSection from "./components/Education/EducationSection";
 import LanguagesSection from "./components/LanguagesSection";
 import HobbiesSection from "./components/HobbiesSection";
 import SkillsSection from "./components/skills/SkillsSection";
