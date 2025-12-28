@@ -3,9 +3,19 @@ import { For } from "solid-js";
 import ContactInfo from "./ContactInfo";
 import { contactInfo, quickLinks, socialLinks } from "../data/personal";
 
-export default function Footer() {
+// Simple SVG Icons for the Resume section (Inline to avoid dependency issues)
+const EyeIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+);
+const DownloadIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+);
 
+export default function Footer() {
   const currentYear = new Date().getFullYear();
+  
+  // REPLACE THIS WITH YOUR ACTUAL PDF PATH IN THE PUBLIC FOLDER
+  const resumeUrl = "/HAMZA BOULAHIA – FR.pdf"; 
 
   return (
     <footer class="relative bg-gradient-to-b from-slate-950 via-slate-900 to-black text-white overflow-hidden">
@@ -20,11 +30,11 @@ export default function Footer() {
         {/* Main Footer Content */}
         <div class="py-16 md:py-20">
           <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-            {/* Brand Section */}
+            
+            {/* 1. Brand & Resume Section */}
             <div class="flex flex-col items-center md:items-start">
               <div class="mb-6 group">
                 <div class="relative w-14 h-14">
-                  {/* Glow background */}
                   <div class="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur"></div>
                   <div class="relative w-14 h-14 rounded-lg bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-blue-500/50 group-hover:shadow-blue-500/100 transition-all duration-300 group-hover:scale-110">
                     <span class="text-white font-bold text-2xl">HB</span>
@@ -32,17 +42,43 @@ export default function Footer() {
                 </div>
               </div>
               <h3 class="text-2xl font-bold text-white mb-2">Hamza Boulahia</h3>
-              <p class="text-blue-200/80 mb-6 text-center md:text-left">
+              <p class="text-blue-200/80 mb-4 text-center md:text-left">
                 Full Stack Engineer • 5 Years Experience
               </p>
-              <p class="text-blue-200/70 text-sm leading-relaxed text-center md:text-left max-w-xs">
+              <p class="text-blue-200/70 text-sm leading-relaxed text-center md:text-left max-w-xs mb-6">
                 Crafting scalable web & mobile solutions with modern
-                technologies. Passionate about clean code and great user
-                experiences.
+                technologies. Passionate about clean code.
               </p>
+
+              {/* --- NEW RESUME SECTION --- */}
+              <div class="flex items-center gap-3 p-1.5 bg-blue-900/20 border border-blue-500/20 rounded-xl backdrop-blur-sm">
+                 {/* Preview Button */}
+                 <a 
+                   href={resumeUrl}
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600/10 hover:bg-blue-500/20 text-blue-200 text-sm font-medium transition-all duration-200 group border border-transparent hover:border-blue-400/30"
+                   title="Preview Resume"
+                 >
+                   <EyeIcon />
+                   <span>Preview</span>
+                 </a>
+
+                 <div class="w-px h-6 bg-blue-500/20"></div>
+
+                 {/* Download Button */}
+                 <a 
+                   href={resumeUrl}
+                   download="Hamza_Boulahia_Resume.pdf"
+                   class="flex items-center justify-center w-9 h-9 rounded-lg bg-blue-600/10 hover:bg-blue-500/20 text-blue-200 hover:text-white transition-all duration-200 border border-transparent hover:border-blue-400/30"
+                   title="Download Resume"
+                 >
+                   <DownloadIcon />
+                 </a>
+              </div>
             </div>
 
-            {/* Quick Links */}
+            {/* 2. Quick Links */}
             <div class="flex flex-col items-center">
               <h4 class="text-lg font-bold mb-6 text-white">Quick Links</h4>
               <div class="space-y-3">
@@ -64,7 +100,7 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Contact & Social */}
+            {/* 3. Contact & Social */}
             <div class="flex flex-col items-center md:items-end">
               <h4 class="text-lg font-bold mb-6 text-white">Connect</h4>
               <div class="flex gap-4 mb-8">
@@ -79,7 +115,6 @@ export default function Footer() {
                         rel="noopener noreferrer"
                         class="group relative w-12 h-12 rounded-lg bg-gradient-to-br from-blue-600/20 to-purple-600/20 hover:from-blue-600/40 hover:to-purple-600/40 flex items-center justify-center transition-all duration-200 hover:scale-110 border border-blue-400/30 hover:border-blue-300/60 backdrop-blur-sm overflow-hidden"
                       >
-                        {/* Glow effect */}
                         <div class="absolute inset-0 bg-gradient-to-r from-blue-400/0 via-blue-400/20 to-purple-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 -z-10"></div>
                         <Icon
                           size={20}
@@ -136,26 +171,12 @@ export default function Footer() {
 
       <style>{`
         @keyframes float-up {
-          0%, 100% {
-            transform: translateY(0px);
-            opacity: 0;
-          }
-          10% {
-            opacity: 0.5;
-          }
-          50% {
-            transform: translateY(-20px);
-            opacity: 1;
-          }
-          90% {
-            opacity: 0.5;
-          }
-          100% {
-            transform: translateY(0px);
-            opacity: 0;
-          }
+          0%, 100% { transform: translateY(0px); opacity: 0; }
+          10% { opacity: 0.5; }
+          50% { transform: translateY(-20px); opacity: 1; }
+          90% { opacity: 0.5; }
+          100% { transform: translateY(0px); opacity: 0; }
         }
-
         .animate-pulse {
           animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }

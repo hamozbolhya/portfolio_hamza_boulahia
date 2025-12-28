@@ -1,21 +1,28 @@
 // src/components/Header.jsx
 import { createSignal, onMount } from "solid-js";
-import { Menu, X, Github, Linkedin, Mail } from "lucide-solid";
+import { Menu, X, Languages } from "lucide-solid";
 import { navItems, socials } from "../data/nav";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function Header() {
   const [isOpen, setIsOpen] = createSignal(false);
   const [scrollY, setScrollY] = createSignal(0);
 
-  onMount(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
+  // 1. Get translation tools
+  const { language, toggleLanguage, t } = useLanguage();
 
+  const getNavItems = () => [
+    { label: t("nav.home"), href: "#home" },
+    { label: t("nav.about"), href: "#about" },
+    { label: t("nav.projects"), href: "#projects" },
+    { label: t("nav.experience"), href: "#experience" },
+    { label: t("nav.contact"), href: "#contact" },
+  ];
+
+  onMount(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   });
 
   const isScrolled = scrollY() > 50;
@@ -58,14 +65,14 @@ export default function Header() {
                   Hamza Boulahia
                 </h1>
                 <p class="text-xs font-medium text-blue-300/80">
-                  Full Stack Engineer
+                  {t("header.role")}
                 </p>
               </div>
             </a>
 
             {/* Desktop Navigation */}
             <nav class="hidden lg:flex items-center space-x-1">
-              {navItems.map((item) => (
+              {getNavItems().map((item) => (
                 <a
                   href={item.href}
                   class="relative px-4 py-2 text-sm font-semibold text-blue-100/80 hover:text-white transition-colors duration-200 group"
@@ -79,10 +86,25 @@ export default function Header() {
               ))}
             </nav>
 
-            {/* Social Links + Mobile Menu */}
+            {/* Social Links + Language + Mobile Menu */}
             <div class="flex items-center space-x-3">
-              {/* Desktop Socials */}
+              {/* Desktop Language Switcher & Socials */}
               <div class="hidden md:flex items-center space-x-1 ml-4 pl-4 border-l border-blue-400/20">
+                {/* Language Switcher Button */}
+                <button
+                  onClick={toggleLanguage}
+                  class="group flex items-center gap-1.5 px-3 py-1.5 mr-2 rounded-lg text-xs font-bold text-blue-200 hover:text-white border border-blue-400/20 hover:border-blue-400/50 bg-blue-500/5 hover:bg-blue-500/20 transition-all duration-300 relative overflow-hidden"
+                  aria-label={t("aria.switchLang")}
+                >
+                  <Languages
+                    size={14}
+                    class="group-hover:scale-110 transition-transform"
+                  />
+                  <span>{language().toUpperCase()}</span>
+                  {/* Subtle Glow */}
+                  <div class="absolute inset-0 bg-gradient-to-r from-blue-400/0 via-blue-400/10 to-purple-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </button>
+
                 {socials.map((social) => (
                   <a
                     href={social.href}
@@ -102,7 +124,7 @@ export default function Header() {
               <button
                 onClick={() => setIsOpen(!isOpen())}
                 class="lg:hidden p-2 rounded-lg text-blue-200/60 hover:text-blue-100 hover:bg-blue-500/10 transition-all duration-200 relative group"
-                aria-label="Toggle menu"
+                aria-label={t("aria.toggleMenu")}
               >
                 <div class="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-lg opacity-0 group-hover:opacity-100 blur transition-opacity duration-200 -z-10"></div>
                 {isOpen() ? <X size={24} /> : <Menu size={24} />}
@@ -112,8 +134,8 @@ export default function Header() {
 
           {/* Mobile Navigation */}
           {isOpen() && (
-            <nav class="lg:hidden pb-4 space-y-2 bg-gradient-to-b from-slate-800/50 to-transparent rounded-xl p-4 backdrop-blur-sm border border-blue-400/10 mb-4">
-              {navItems.map((item) => (
+            <nav class="lg:hidden pb-4 space-y-2 bg-gradient-to-b from-slate-800/50 to-transparent rounded-xl p-4 backdrop-blur-sm border border-blue-400/10 mb-4 animate-in slide-in-from-top-2 duration-200">
+              {getNavItems().map((item) => (
                 <a
                   href={item.href}
                   class="group relative block px-4 py-3 text-blue-100/80 hover:text-white rounded-lg transition-all duration-200"
@@ -130,8 +152,8 @@ export default function Header() {
                 </a>
               ))}
 
-              {/* Mobile Socials */}
-              <div class="flex items-center space-x-2 px-4 py-3 border-t border-blue-400/10 mt-4 pt-4">
+              {/* Mobile Socials + Language */}
+              <div class="flex items-center gap-2 px-4 py-3 border-t border-blue-400/10 mt-4 pt-4">
                 {socials.map((social) => {
                   const Icon = social.icon;
                   return (
@@ -149,6 +171,14 @@ export default function Header() {
                     </a>
                   );
                 })}
+
+                {/* Mobile Language Button */}
+                <button
+                  onClick={toggleLanguage}
+                  class="flex-none px-4 py-2 rounded-lg text-blue-200 font-bold bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-400/30 hover:border-blue-400/60 transition-all duration-300"
+                >
+                 {language().toUpperCase()}
+                </button>
               </div>
             </nav>
           )}
@@ -168,21 +198,12 @@ export default function Header() {
 
       <style>{`
         @keyframes glow {
-          0%, 100% {
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
-          }
-          50% {
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.7);
-          }
+          0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
+          50% { box-shadow: 0 0 30px rgba(168, 85, 247, 0.7); }
         }
-
         @keyframes pulse-glow {
-          0%, 100% {
-            opacity: 0.5;
-          }
-          50% {
-            opacity: 1;
-          }
+          0%, 100% { opacity: 0.5; }
+          50% { opacity: 1; }
         }
       `}</style>
     </>
