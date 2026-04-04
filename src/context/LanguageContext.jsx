@@ -2,28 +2,30 @@
 import { createSignal, createContext, useContext } from "solid-js";
 import { translations } from "../i18n/translations";
 
-const LanguageContext = createContext();
+// Initialize with a safe default so it never crashes
+const LanguageContext = createContext({
+  language: () => "en",
+  setLanguage: () => {},
+  toggleLanguage: () => {},
+  t: (key) => key, // Returns the key string if context fails
+});
 
 export function LanguageProvider(props) {
-  // Default to English
   const [language, setLanguage] = createSignal("en");
 
-  // Toggle function
   const toggleLanguage = () => {
     setLanguage((prev) => (prev === "en" ? "fr" : "en"));
   };
 
-  // Translation helper function
-  // Usage: t("header.role") -> "Full Stack Engineer"
   const t = (path) => {
     const keys = path.split(".");
+    // This call to language() makes the helper reactive
     let value = translations[language()];
-    
+
     for (const key of keys) {
       value = value?.[key];
     }
-    
-    return value || path; // Fallback to key if translation missing
+    return value || path;
   };
 
   const store = {
@@ -40,7 +42,6 @@ export function LanguageProvider(props) {
   );
 }
 
-// Custom Hook for easy access
 export function useLanguage() {
   return useContext(LanguageContext);
 }

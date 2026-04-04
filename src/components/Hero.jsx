@@ -1,9 +1,10 @@
-import { For, createSignal, onMount } from "solid-js";
+import { For, createSignal, onMount, createMemo } from "solid-js";
 import CATBanner from "./Hero/CTABanner";
 import GitHub from "./Hero/GitHub";
 import StatsSection from "./Hero/Stats";
-import { stats, titles } from "../data/hero";
+import { stats as staticStats } from "../data/hero";
 import { contactInfo, skills } from "../data/nav";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function Hero() {
   const [scrollY, setScrollY] = createSignal(0);
@@ -11,6 +12,20 @@ export default function Hero() {
   const [contributions, setContributions] = createSignal(null);
   const [contributionGraph, setContributionGraph] = createSignal(null);
   const [loading, setLoading] = createSignal(true);
+
+  // 2. Initialize Language Hook
+  const { t, language } = useLanguage();
+
+  const translatedStats = createMemo(() => {
+    // 2. Access the language signal here.
+    // This tells Solid: "When language() changes, re-run this memo."
+    language();
+
+    return staticStats.map((stat) => ({
+      ...stat,
+      label: t(`stats.${stat.key}`),
+    }));
+  });
 
   onMount(() => {
     const handleScroll = () => {
@@ -21,10 +36,11 @@ export default function Hero() {
 
     // Rotate titles every 4 seconds
     const titleInterval = setInterval(() => {
-      setTitleIndex((prev) => (prev + 1) % titles.length);
+      // Access array via t() to get current length
+      const currentTitles = t("hero.titles");
+      setTitleIndex((prev) => (prev + 1) % currentTitles.length);
     }, 4000);
 
-    // Fetch GitHub contributions
     fetchGitHubContributions();
 
     return () => {
@@ -33,14 +49,12 @@ export default function Hero() {
     };
   });
 
-  // Fetch GitHub contributions data
+  // ... (Keep fetchGitHubContributions logic exactly as it is) ...
   async function fetchGitHubContributions() {
     try {
-      // Your GitHub username
       const response = await fetch("https://api.github.com/users/hamozbolhya");
       const data = await response.json();
 
-      // Fetch contribution graph using GraphQL
       const graphQLQuery = {
         query: `
           query {
@@ -98,7 +112,6 @@ export default function Hero() {
     } catch (error) {
       console.error("Error fetching GitHub data:", error);
       setLoading(false);
-      // Fallback data
       setContributions({
         totalContributions: 93,
         followers: 0,
@@ -115,7 +128,7 @@ export default function Hero() {
       id="home"
       class="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden"
     >
-      {/* Animated gradient background orbs */}
+      {/* Background Orbs (Unchanged) */}
       <div class="absolute inset-0 -z-10">
         <div class="absolute top-20 left-10 w-72 h-72 bg-blue-500/20 rounded-full mix-blend-screen filter blur-3xl opacity-40 animate-pulse"></div>
         <div class="absolute top-40 right-10 w-72 h-72 bg-purple-500/15 rounded-full mix-blend-screen filter blur-3xl opacity-30 animate-pulse animation-delay-2000"></div>
@@ -135,14 +148,16 @@ export default function Hero() {
             <div class="inline-block mb-6">
               <div class="px-4 py-2 bg-blue-500/20 border border-blue-400/50 rounded-full backdrop-blur-sm hover:bg-blue-500/30 transition-all duration-300">
                 <p class="text-sm font-semibold text-blue-300">
-                  👋 Welcome to my portfolio
+                  {/* 4. Translated Welcome Message */}
+                  {t("hero.welcome")}
                 </p>
               </div>
             </div>
 
             {/* Animated Title */}
             <div class="h-48 md:h-56 flex items-center justify-center mb-8 relative">
-              <For each={titles}>
+              {/* 5. Loop through Translated Titles */}
+              <For each={t("hero.titles")}>
                 {(title, index) => (
                   <h1
                     class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold absolute text-center transition-all duration-700 leading-tight"
@@ -168,12 +183,13 @@ export default function Hero() {
               </For>
             </div>
 
+            {/* 6. Translated Bio */}
             <p class="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed mb-8 font-medium">
-              Crafting scalable web & mobile applications with expertise in{" "}
+              {t("hero.description_start")}
               <span class="text-white font-bold">
-                banking, fintech, retail, and enterprise
-              </span>{" "}
-              sectors
+                {t("hero.description_bold")}
+              </span>
+              {t("hero.description_end")}
             </p>
 
             {/* Skills Badges */}
@@ -197,8 +213,8 @@ export default function Hero() {
             contributionGraph={contributionGraph}
           />
 
-          {/* Stats Grid */}
-          <StatsSection stats={stats} />
+          {/* Stats Grid - Passing Translated Stats */}
+          <StatsSection stats={translatedStats()} />
 
           {/* CTA Banner */}
           <div class="relative overflow-hidden rounded-2xl">
@@ -209,14 +225,8 @@ export default function Hero() {
 
       <style>{`
         @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
     </section>

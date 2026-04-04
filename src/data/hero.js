@@ -8,7 +8,7 @@ export const stats = [
   {
     icon: "📅",
     value: "5",
-    label: "Years Experience",
+    key: "years", // Matches translations.stats.years
     href: "",
     bg: "from-blue-600 via-blue-700 to-blue-800",
     accent: "blue",
@@ -16,7 +16,7 @@ export const stats = [
   {
     icon: "🚀",
     value: "20+",
-    label: "Projects Delivered",
+    key: "projects",
     href: "",
     bg: "from-purple-600 via-purple-700 to-pink-600",
     accent: "purple",
@@ -24,7 +24,7 @@ export const stats = [
   {
     icon: "💻",
     value: "5",
-    label: "Tech Stacks",
+    key: "stacks",
     href: "#skills",
     bg: "from-green-600 via-emerald-600 to-teal-600",
     accent: "green",
@@ -32,7 +32,7 @@ export const stats = [
   {
     icon: "🌐",
     value: "3",
-    label: "Languages",
+    key: "languages",
     href: "",
     bg: "from-orange-600 via-orange-700 to-red-600",
     accent: "orange",

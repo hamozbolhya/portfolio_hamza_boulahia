@@ -489,17 +489,20 @@ export default function EarthIntro({ onComplete }) {
 
       window.addEventListener("resize", handleResize);
 
-      const handleKeyPress = (e) => {
+      const handleKeyDown = (e) => {
         if (e.key === "Enter" && !loading() && searchActive()) {
           startSearchAnimation();
         }
+        if (e.key === "Escape") {
+          if (onComplete) onComplete();
+        }
       };
 
-      window.addEventListener("keypress", handleKeyPress);
+      window.addEventListener("keydown", handleKeyDown);
 
       onCleanup(() => {
         cancelAnimationFrame(animationId);
-        window.removeEventListener("keypress", handleKeyPress);
+        window.removeEventListener("keydown", handleKeyDown);
         window.removeEventListener("resize", handleResize);
         if (
           renderer &&
@@ -876,6 +879,44 @@ export default function EarthIntro({ onComplete }) {
             VERSION 2.0.1
           </div>
         </div>
+      </Show>
+
+      {/* Skip Button */}
+      <Show when={!loading()}>
+        <button
+          onClick={() => onComplete && onComplete()}
+          style={{
+            position: "absolute",
+            bottom: "20px",
+            right: "20px",
+            padding: "10px 20px",
+            background: "rgba(0, 20, 40, 0.6)",
+            border: "1px solid rgba(0, 255, 136, 0.3)",
+            color: "#00ff88",
+            borderRadius: "8px",
+            cursor: "pointer",
+            zIndex: 1001,
+            fontSize: "12px",
+            letterSpacing: "2px",
+            fontFamily: "'Courier New', monospace",
+            backdropFilter: "blur(5px)",
+            transition: "all 0.3s ease",
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = "rgba(0, 255, 136, 0.1)";
+            e.currentTarget.style.borderColor = "#00ff88";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = "rgba(0, 20, 40, 0.6)";
+            e.currentTarget.style.borderColor = "rgba(0, 255, 136, 0.3)";
+          }}
+        >
+          <span>SKIP INTRO</span>
+          <span style={{ fontSize: "10px", opacity: 0.6 }}>[ESC]</span>
+        </button>
       </Show>
 
       {/* Main Container */}

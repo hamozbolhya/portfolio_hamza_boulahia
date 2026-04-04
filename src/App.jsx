@@ -16,10 +16,17 @@ export default function App() {
   const [mouseY, setMouseY] = createSignal(0);
   const [isLoaded, setIsLoaded] = createSignal(false);
   const [cursorVariant, setCursorVariant] = createSignal("default");
-  const [showIntro, setShowIntro] = createSignal(true);
+  let initialIntroState = true;
+  try {
+    initialIntroState = !localStorage.getItem("hasSeenEarthIntro");
+  } catch (e) {
+    initialIntroState = true;
+  }
+  const [showIntro, setShowIntro] = createSignal(initialIntroState);
 
   const handleIntroComplete = () => {
     setShowIntro(false);
+    localStorage.setItem('hasSeenEarthIntro', 'true');
   };
 
   onMount(() => {
